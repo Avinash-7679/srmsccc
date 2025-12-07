@@ -1,0 +1,61 @@
+{"studentId":"S1001","subject":"Mathematics","term":"Mid1","marks":67}
+{"studentId":"S1001","subject":"Mathematics","term":"Mid2","marks":82}
+{"studentId":"S1001","subject":"Mathematics","term":"Final","marks":88}
+{"studentId":"S1001","subject":"Physics","term":"Mid1","marks":82}
+{"studentId":"S1001","subject":"Physics","term":"Mid2","marks":88}
+{"studentId":"S1001","subject":"Physics","term":"Final","marks":62}
+{"studentId":"S1001","subject":"Computer Science","term":"Mid1","marks":75}
+{"studentId":"S1001","subject":"Computer Science","term":"Mid2","marks":78}
+{"studentId":"S1001","subject":"Computer Science","term":"Final","marks":84}
+{"studentId":"S1001","subject":"Data Structures","term":"Mid1","marks":79}
+{"studentId":"S1001","subject":"Data Structures","term":"Mid2","marks":60}
+{"studentId":"S1001","subject":"Data Structures","term":"Final","marks":81}
+{"studentId":"S1002","subject":"Mathematics","term":"Mid1","marks":83}
+{"studentId":"S1002","subject":"Mathematics","term":"Mid2","marks":92}
+{"studentId":"S1002","subject":"Mathematics","term":"Final","marks":62}
+{"studentId":"S1002","subject":"Physics","term":"Mid1","marks":74}
+{"studentId":"S1002","subject":"Physics","term":"Mid2","marks":76}
+{"studentId":"S1002","subject":"Physics","term":"Final","marks":67}
+{"studentId":"S1002","subject":"Computer Science","term":"Mid1","marks":81}
+{"studentId":"S1002","subject":"Computer Science","term":"Mid2","marks":93}
+{"studentId":"S1002","subject":"Computer Science","term":"Final","marks":60}
+{"studentId":"S1002","subject":"Data Structures","term":"Mid1","marks":72}
+{"studentId":"S1002","subject":"Data Structures","term":"Mid2","marks":89}
+{"studentId":"S1002","subject":"Data Structures","term":"Final","marks":68}
+{"studentId":"S1003","subject":"Mathematics","term":"Mid1","marks":90}
+{"studentId":"S1003","subject":"Mathematics","term":"Mid2","marks":90}
+{"studentId":"S1003","subject":"Mathematics","term":"Final","marks":65}
+{"studentId":"S1003","subject":"Physics","term":"Mid1","marks":94}
+{"studentId":"S1003","subject":"Physics","term":"Mid2","marks":66}
+{"studentId":"S1003","subject":"Physics","term":"Final","marks":85}
+{"studentId":"S1003","subject":"Electronics","term":"Mid1","marks":76}
+{"studentId":"S1003","subject":"Electronics","term":"Mid2","marks":80}
+{"studentId":"S1003","subject":"Electronics","term":"Final","marks":73}
+{"studentId":"S1003","subject":"Signals","term":"Mid1","marks":77}
+{"studentId":"S1003","subject":"Signals","term":"Mid2","marks":90}
+{"studentId":"S1003","subject":"Signals","term":"Final","marks":89}
+{"studentId":"S1004","subject":"Mathematics","term":"Mid1","marks":79}
+{"studentId":"S1004","subject":"Mathematics","term":"Mid2","marks":61}
+{"studentId":"S1004","subject":"Mathematics","term":"Final","marks":71}
+{"studentId":"S1004","subject":"Physics","term":"Mid1","marks":85}
+{"studentId":"S1004","subject":"Physics","term":"Mid2","marks":84}
+{"studentId":"S1004","subject":"Physics","term":"Final","marks":72}
+{"studentId":"S1004","subject":"Computer Science","term":"Mid1","marks":78}
+{"studentId":"S1004","subject":"Computer Science","term":"Mid2","marks":66}
+{"studentId":"S1004","subject":"Computer Science","term":"Final","marks":76}
+{"studentId":"S1004","subject":"Data Structures","term":"Mid1","marks":65}
+{"studentId":"S1004","subject":"Data Structures","term":"Mid2","marks":60}
+{"studentId":"S1004","subject":"Data Structures","term":"Final","marks":65}
+{"studentId":"S1005","subject":"Mathematics","term":"Mid1","marks":61}
+{"studentId":"S1005","subject":"Mathematics","term":"Mid2","marks":89}
+{"studentId":"S1005","subject":"Mathematics","term":"Final","marks":70}
+{"studentId":"S1005","subject":"Physics","term":"Mid1","marks":76}
+{"studentId":"S1005","subject":"Physics","term":"Mid2","marks":91}
+{"studentId":"S1005","subject":"Physics","term":"Final","marks":91}
+{"studentId":"S1005","subject":"Mechanics","term":"Mid1","marks":64}
+{"studentId":"S1005","subject":"Mechanics","term":"Mid2","marks":74}
+{"studentId":"S1005","subject":"Mechanics","term":"Final","marks":72}
+{"studentId":"S1005","subject":"Thermodynamics","term":"Mid1","marks":77}
+{"studentId":"S1005","subject":"Thermodynamics","term":"Mid2","marks":90}
+{"studentId":"S1005","subject":"Thermodynamics","term":"Final","marks":86}
+{"studentId":"139","subject":"ethics","term":"Mid1","marks":25}

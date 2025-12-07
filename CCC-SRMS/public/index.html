@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SRMS - Student Record Management System for managing students, teachers, attendance, marks, and fees">
+  <title>SRMS - Student Record Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="animated-bg"></div>
+  
+  <div class="container">
+    <!-- Landing Page -->
+    <div id="landing-page">
+      <header class="header">
+        <h1>SRMS</h1>
+        <p>Student Record Management System</p>
+      </header>
+      
+      <div class="card-grid">
+        <div class="card role-card" data-role="admin">
+          <div class="role-icon">👨‍💼</div>
+          <h2>Admin</h2>
+          <p>Manage students, teachers, and fees</p>
+        </div>
+        
+        <div class="card role-card" data-role="teacher">
+          <div class="role-icon">👩‍🏫</div>
+          <h2>Teacher</h2>
+          <p>Mark attendance and add marks</p>
+        </div>
+        
+        <div class="card role-card" data-role="student">
+          <div class="role-icon">👨‍🎓</div>
+          <h2>Student</h2>
+          <p>View your records and progress</p>
+        </div>
+        
+        <div class="card role-card" data-role="parent">
+          <div class="role-icon">👨‍👩‍👧</div>
+          <h2>Parent</h2>
+          <p>Monitor your child's progress</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Login Form -->
+    <div id="login-page" class="hidden">
+      <div class="card" style="max-width: 500px; margin: 0 auto;">
+        <div class="flex-between mb-2">
+          <h2 id="login-title">Login</h2>
+          <button class="btn btn-secondary btn-sm" id="back-btn">← Back</button>
+        </div>
+        
+        <div id="alert-container"></div>
+        
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-id" id="login-id-label">ID</label>
+            <input type="text" id="login-id" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-control" required>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="hidden">
+      <div class="flex-between mb-2">
+        <h1>Admin Dashboard</h1>
+        <button class="btn btn-secondary" id="admin-logout">Logout</button>
+      </div>
+      
+      <div id="admin-alert"></div>
+      
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="total-students">0</div>
+          <div class="stat-label">Total Students</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-teachers">0</div>
+          <div class="stat-label">Total Teachers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-fees">₹0</div>
+          <div class="stat-label">Total Fees</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-paid">₹0</div>
+          <div class="stat-label">Fees Collected</div>
+        </div>
+      </div>
+      
+      <!-- Tabs -->
+      <div class="flex gap-1 mb-2">
+        <button class="btn btn-primary tab-btn active" data-tab="students">Students</button>
+        <button class="btn btn-secondary tab-btn" data-tab="teachers">Teachers</button>
+        <button class="btn btn-secondary tab-btn" data-tab="payments">Payments</button>
+        <button class="btn btn-secondary tab-btn" data-tab="add-student">Add Student</button>
+        <button class="btn btn-secondary tab-btn" data-tab="add-teacher">Add Teacher</button>
+      </div>
+      
+      <!-- Students Tab -->
+      <div class="tab-content" id="tab-students">
+        <div class="card">
+          <div class="flex-between mb-2">
+            <h2>Students List</h2>
+            <input type="text" id="search-students" class="form-control" placeholder="Search by ID, name, branch..." style="max-width: 300px;">
+          </div>
+          
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Year</th>
+                  <th>Branch</th>
+                  <th>Section</th>
+                  <th>Club</th>
+                  <th>Hostel</th>
+                  <th>Attendance</th>
+                  <th>Avg Marks</th>
+                  <th>Fee Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="students-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Teachers Tab -->
+      <div class="tab-content hidden" id="tab-teachers">
+        <div class="card">
+          <h2 class="mb-2">Teachers List</h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Subject</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="teachers-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Payments Tab -->
+      <div class="tab-content hidden" id="tab-payments">
+        <div class="card">
+          <h2 class="mb-2">Payment Transactions</h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Payment ID</th>
+                  <th>Student ID</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Mode</th>
+                  <th>Note</th>
+                </tr>
+              </thead>
+              <tbody id="payments-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Add Student Tab -->
+      <div class="tab-content hidden" id="tab-add-student">
+        <div class="card" style="max-width: 800px;">
+          <h2 class="mb-2">Add New Student</h2>
+          <form id="add-student-form">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="student-id">Student ID *</label>
+                <input type="text" id="student-id" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="student-name">Name *</label>
+                <input type="text" id="student-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="student-dob">Date of Birth</label>
+                <input type="date" id="student-dob" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="student-year">Year</label>
+                <select id="student-year" class="form-control">
+                  <option value="">Select Year</option>
+                  <option value="1">1st Year</option>
+                  <option value="2">2nd Year</option>
+                  <option value="3">3rd Year</option>
+                  <option value="4">4th Year</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="student-branch">Branch</label>
+                <select id="student-branch" class="form-control">
+                  <option value="">Select Branch</option>
+                  <option value="CSE">CSE</option>
+                  <option value="ECE">ECE</option>
+                  <option value="EEE">EEE</option>
+                  <option value="MECH">MECH</option>
+                  <option value="CIVIL">CIVIL</option>
+                  <option value="IT">IT</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="student-section">Section</label>
+                <select id="student-section" class="form-control">
+                  <option value="">Select Section</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                  <option value="G">G</option>
+                  <option value="H">H</option>
+                  <option value="I">I</option>
+                  <option value="J">J</option>
+                  <option value="K">K</option>
+                  <option value="L">L</option>
+                  <option value="M">M</option>
+                  <option value="N">N</option>
+                  <option value="O">O</option>
+                  <option value="P">P</option>
+                  <option value="Q">Q</option>
+                  <option value="R">R</option>
+                  <option value="S">S</option>
+                  <option value="T">T</option>
+                  <option value="U">U</option>
+                  <option value="V">V</option>
+                  <option value="W">W</option>
+                  <option value="X">X</option>
+                  <option value="Y">Y</option>
+                  <option value="Z">Z</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="student-club">Club</label>
+                <input type="text" id="student-club" class="form-control" placeholder="e.g., Robotics">
+              </div>
+              <div class="form-group">
+                <label for="student-hostel">Hostel</label>
+                <input type="text" id="student-hostel" class="form-control" placeholder="e.g., H1">
+              </div>
+              <div class="form-group">
+                <label for="student-parent-phone">Parent Phone *</label>
+                <input type="tel" id="student-parent-phone" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="student-fee-total">Total Fee Amount</label>
+                <input type="number" id="student-fee-total" class="form-control" placeholder="20000">
+              </div>
+              <div class="form-group">
+                <label for="student-password">Password *</label>
+                <input type="password" id="student-password" class="form-control" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Add Student</button>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Add Teacher Tab -->
+      <div class="tab-content hidden" id="tab-add-teacher">
+        <div class="card" style="max-width: 600px;">
+          <h2 class="mb-2">Add New Teacher</h2>
+          <form id="add-teacher-form">
+            <div class="form-group">
+              <label for="teacher-id">Teacher ID *</label>
+              <input type="text" id="teacher-id" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="teacher-name">Name *</label>
+              <input type="text" id="teacher-name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="teacher-subject">Subject</label>
+              <input type="text" id="teacher-subject" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="teacher-password">Password *</label>
+              <input type="password" id="teacher-password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Teacher</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Teacher Dashboard -->
+    <div id="teacher-dashboard" class="hidden">
+      <div class="flex-between mb-2">
+        <h1>Teacher Dashboard</h1>
+        <div class="flex gap-1">
+          <button class="btn btn-secondary" id="teacher-change-password">Change Password</button>
+          <button class="btn btn-secondary" id="teacher-logout">Logout</button>
+        </div>
+      </div>
+      
+      <div id="teacher-alert"></div>
+      
+      <div class="flex gap-1 mb-2">
+        <button class="btn btn-primary teacher-tab-btn active" data-tab="attendance">Mark Attendance</button>
+        <button class="btn btn-secondary teacher-tab-btn" data-tab="marks">Add Marks</button>
+      </div>
+      
+      <!-- Attendance Tab -->
+      <div class="teacher-tab-content" id="teacher-tab-attendance">
+        <div class="card">
+          <h2 class="mb-2">Mark Attendance</h2>
+          
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="form-group">
+              <label for="attendance-year">Year</label>
+              <select id="attendance-year" class="form-control">
+                <option value="">All</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="attendance-branch">Branch</label>
+              <input type="text" id="attendance-branch" class="form-control" placeholder="e.g., CSE">
+            </div>
+            <div class="form-group">
+              <label for="attendance-section">Section</label>
+              <input type="text" id="attendance-section" class="form-control" placeholder="e.g., A">
+            </div>
+          </div>
+          
+          <button class="btn btn-primary mb-2" id="load-students-btn">Load Students</button>
+          
+          <div id="attendance-form-container" class="hidden">
+            <div class="form-group">
+              <label for="attendance-date">Date</label>
+              <input type="date" id="attendance-date" class="form-control" required>
+            </div>
+            
+            <div class="table-container mb-2">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                  </tr>
+                </thead>
+                <tbody id="attendance-students-tbody"></tbody>
+              </table>
+            </div>
+            
+            <button class="btn btn-success" id="submit-attendance-btn">Submit Attendance</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Marks Tab -->
+      <div class="teacher-tab-content hidden" id="teacher-tab-marks">
+        <div class="card" style="max-width: 600px;">
+          <h2 class="mb-2">Add Marks</h2>
+          <form id="add-marks-form">
+            <div class="form-group">
+              <label for="marks-student-id">Student ID *</label>
+              <input type="text" id="marks-student-id" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="marks-subject">Subject *</label>
+              <input type="text" id="marks-subject" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="marks-term">Term *</label>
+              <select id="marks-term" class="form-control" required>
+                <option value="">Select Term</option>
+                <option value="Mid1">Mid Term 1</option>
+                <option value="Mid2">Mid Term 2</option>
+                <option value="Final">Final</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="marks-value">Marks *</label>
+              <input type="number" id="marks-value" class="form-control" min="0" max="100" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Marks</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" class="hidden">
+      <div class="flex-between mb-2">
+        <h1>Student Dashboard</h1>
+        <div class="flex gap-1">
+          <button class="btn btn-secondary" id="student-change-password">Change Password</button>
+          <button class="btn btn-secondary" id="student-logout">Logout</button>
+        </div>
+      </div>
+      
+      <div id="student-alert"></div>
+      
+      <!-- Profile Card -->
+      <div class="card mb-2">
+        <h2 class="mb-2">Profile</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Student ID</div>
+            <div id="student-profile-id" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Name</div>
+            <div id="student-profile-name" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Year</div>
+            <div id="student-profile-year" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Branch</div>
+            <div id="student-profile-branch" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Section</div>
+            <div id="student-profile-section" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Club</div>
+            <div id="student-profile-club" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Hostel</div>
+            <div id="student-profile-hostel" style="font-weight: 600;">-</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="student-attendance-percent">0%</div>
+          <div class="stat-label">Attendance</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="student-fee-balance">₹0</div>
+          <div class="stat-label">Fee Balance</div>
+        </div>
+      </div>
+      
+      <!-- Marks -->
+      <div class="card mb-2">
+        <h2 class="mb-2">Marks</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Term</th>
+                <th>Marks</th>
+              </tr>
+            </thead>
+            <tbody id="student-marks-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Attendance -->
+      <div class="card">
+        <h2 class="mb-2">Attendance History</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="student-attendance-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Parent Dashboard -->
+    <div id="parent-dashboard" class="hidden">
+      <div class="flex-between mb-2">
+        <h1>Parent Dashboard</h1>
+        <button class="btn btn-secondary" id="parent-logout">Logout</button>
+      </div>
+      
+      <div id="parent-alert"></div>
+      
+      <!-- Child Profile -->
+      <div class="card mb-2">
+        <h2 class="mb-2">Child's Profile</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Student ID</div>
+            <div id="parent-child-id" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Name</div>
+            <div id="parent-child-name" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Year</div>
+            <div id="parent-child-year" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Branch</div>
+            <div id="parent-child-branch" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Section</div>
+            <div id="parent-child-section" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Club</div>
+            <div id="parent-child-club" style="font-weight: 600;">-</div>
+          </div>
+          <div>
+            <div class="text-secondary" style="font-size: 0.9rem;">Hostel</div>
+            <div id="parent-child-hostel" style="font-weight: 600;">-</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="parent-attendance-percent">0%</div>
+          <div class="stat-label">Attendance</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="parent-fee-total">₹0</div>
+          <div class="stat-label">Total Fee</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="parent-fee-paid">₹0</div>
+          <div class="stat-label">Paid</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="parent-fee-balance">₹0</div>
+          <div class="stat-label">Balance</div>
+        </div>
+      </div>
+      
+      <!-- Pay Fee -->
+      <div class="card mb-2">
+        <h2 class="mb-2">Pay Fee</h2>
+        <form id="pay-fee-form" style="max-width: 500px;">
+          <div class="form-group">
+            <label for="payment-amount">Amount *</label>
+            <input type="number" id="payment-amount" class="form-control" min="1" required>
+          </div>
+          <div class="form-group">
+            <label for="payment-mode">Payment Mode</label>
+            <select id="payment-mode" class="form-control">
+              <option value="online">Online</option>
+              <option value="cash">Cash</option>
+              <option value="cheque">Cheque</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="payment-note">Note</label>
+            <input type="text" id="payment-note" class="form-control" placeholder="Optional">
+          </div>
+          <button type="submit" class="btn btn-success">Pay Now</button>
+        </form>
+      </div>
+      
+      <!-- Marks -->
+      <div class="card mb-2">
+        <h2 class="mb-2">Marks</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Term</th>
+                <th>Marks</th>
+              </tr>
+            </thead>
+            <tbody id="parent-marks-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Payment History -->
+      <div class="card">
+        <h2 class="mb-2">Payment History</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Payment ID</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Mode</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody id="parent-payments-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Change Password Modal -->
+  <div id="change-password-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Change Password</h2>
+        <button class="modal-close" id="close-password-modal">×</button>
+      </div>
+      <form id="change-password-form">
+        <div class="form-group">
+          <label for="current-password">Current Password</label>
+          <input type="password" id="current-password" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm New Password</label>
+          <input type="password" id="confirm-password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Change Password</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Edit Student Modal -->
+  <div id="edit-student-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Student</h2>
+        <button class="modal-close" id="close-edit-student-modal">×</button>
+      </div>
+      <form id="edit-student-form">
+        <input type="hidden" id="edit-student-id-hidden">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="edit-student-name">Name</label>
+            <input type="text" id="edit-student-name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="edit-student-dob">Date of Birth</label>
+            <input type="date" id="edit-student-dob" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="edit-student-year">Year</label>
+            <select id="edit-student-year" class="form-control">
+              <option value="">Select Year</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-student-branch">Branch</label>
+            <select id="edit-student-branch" class="form-control">
+              <option value="">Select Branch</option>
+              <option value="CSE">CSE</option>
+              <option value="ECE">ECE</option>
+              <option value="EEE">EEE</option>
+              <option value="MECH">MECH</option>
+              <option value="CIVIL">CIVIL</option>
+              <option value="IT">IT</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-student-section">Section</label>
+            <select id="edit-student-section" class="form-control">
+              <option value="">Select Section</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+              <option value="G">G</option>
+              <option value="H">H</option>
+              <option value="I">I</option>
+              <option value="J">J</option>
+              <option value="K">K</option>
+              <option value="L">L</option>
+              <option value="M">M</option>
+              <option value="N">N</option>
+              <option value="O">O</option>
+              <option value="P">P</option>
+              <option value="Q">Q</option>
+              <option value="R">R</option>
+              <option value="S">S</option>
+              <option value="T">T</option>
+              <option value="U">U</option>
+              <option value="V">V</option>
+              <option value="W">W</option>
+              <option value="X">X</option>
+              <option value="Y">Y</option>
+              <option value="Z">Z</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-student-club">Club</label>
+            <input type="text" id="edit-student-club" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="edit-student-hostel">Hostel</label>
+            <input type="text" id="edit-student-hostel" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="edit-student-parent-phone">Parent Phone</label>
+            <input type="tel" id="edit-student-parent-phone" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="edit-student-fee-total">Total Fee</label>
+            <input type="number" id="edit-student-fee-total" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="edit-student-fee-status">Fee Status</label>
+            <select id="edit-student-fee-status" class="form-control">
+              <option value="pending">Pending</option>
+              <option value="paid">Paid</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Update Student</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Edit Teacher Modal -->
+  <div id="edit-teacher-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Teacher</h2>
+        <button class="modal-close" id="close-edit-teacher-modal">×</button>
+      </div>
+      <form id="edit-teacher-form">
+        <input type="hidden" id="edit-teacher-id-hidden">
+        <div class="form-group">
+          <label for="edit-teacher-name">Name</label>
+          <input type="text" id="edit-teacher-name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="edit-teacher-subject">Subject</label>
+          <input type="text" id="edit-teacher-subject" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Teacher</button>
+      </form>
+    </div>
+  </div>
+  
+  <script src="/js/landing.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/teacher.js"></script>
+  <script src="/js/student.js"></script>
+  <script src="/js/parent.js"></script>
+</body>
+</html>

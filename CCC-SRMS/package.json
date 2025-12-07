@@ -1,0 +1,22 @@
+{
+    "name": "srms",
+    "version": "1.0.0",
+    "description": "Student Record Management System - Complete, Minimal & Expandable",
+    "main": "server/server.js",
+    "scripts": {
+        "start": "node server/server.js",
+        "dev": "node server/server.js",
+        "seed": "node server/seedData.js"
+    },
+    "keywords": [
+        "srms",
+        "student",
+        "management"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.2",
+        "bcrypt": "^5.1.1"
+    }
+}

@@ -1,0 +1,4 @@
+{"teacherId":"T101","name":"Dr. Rajesh Kumar","subject":"Mathematics","password":"$2b$10$eTTl31wsZwwFGNWEzYbkj.pvQdPD14pAPRKSgKjjLA8B/.mDXEJgm"}
+{"teacherId":"T102","name":"Prof. Anita Desai","subject":"Physics","password":"$2b$10$eTTl31wsZwwFGNWEzYbkj.pvQdPD14pAPRKSgKjjLA8B/.mDXEJgm"}
+{"teacherId":"T103","name":"Dr. Suresh Nair","subject":"Computer Science","password":"$2b$10$eTTl31wsZwwFGNWEzYbkj.pvQdPD14pAPRKSgKjjLA8B/.mDXEJgm"}
+{"teacherId":"2","name":"vishnu","subject":"ethics","password":"$2b$10$HudQhR43IhcABnHAx9eZ8ObSG7lMUrl38Z8ct01c4RDl005K1FkEG"}

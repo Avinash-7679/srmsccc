@@ -1,0 +1,7 @@
+{"paymentId":"P0001","studentId":"S1001","parentPhone":"9876543210","amount":10000,"date":"2025-08-15","mode":"online","note":"First installment"}
+{"paymentId":"P0002","studentId":"S1001","parentPhone":"9876543210","amount":10000,"date":"2025-10-20","mode":"online","note":"Second installment"}
+{"paymentId":"P0003","studentId":"S1002","parentPhone":"9876543211","amount":50000,"date":"2025-08-10","mode":"online","note":"Full payment"}
+{"paymentId":"P0004","studentId":"S1003","parentPhone":"9876543212","amount":15000,"date":"2025-09-05","mode":"cash","note":"Partial payment"}
+{"paymentId":"P0005","studentId":"S1004","parentPhone":"9876543213","amount":25000,"date":"2025-08-20","mode":"online","note":"Half payment"}
+{"paymentId":"P0006","studentId":"S1005","parentPhone":"9876543214","amount":50000,"date":"2025-08-12","mode":"cheque","note":"Full payment"}
+{"paymentId":"P0007","studentId":"139","parentPhone":"9963422814","amount":100000,"date":"2025-12-07","mode":"online","note":""}
